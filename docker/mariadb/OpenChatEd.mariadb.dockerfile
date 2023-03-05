@@ -1,6 +1,6 @@
 ARG MARIADB_VERSION=10.8.2
 
-# Use the official NGINX image as the base image
+# Use the official MARIADB image as the base image
 FROM mariadb:${MARIADB_VERSION}
 
 RUN apt update \
