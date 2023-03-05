@@ -1,0 +1,89 @@
+version: "3.8"
+services:
+  webserver:
+    image: openchated-webserver
+    build:
+      context: ./docker/webserver
+      dockerfile: ./OpenChatEd.webserver.dockerfile
+    container_name: OpenChatEd-webserver
+    hostname: webserver
+    networks:
+      - OpenChatEdExternalNetwork
+    restart: always
+    depends_on:
+      - api
+    volumes:
+      - ./docker/webserver/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+
+  api:
+    image: openchated-api
+    build:
+      context: ./docker/api
+      dockerfile: ./OpenChatEd.api.dockerfile
+    container_name: OpenChatEd-api
+    hostname: api
+    networks:
+      - OpenChatEdExternalNetwork
+      - OpenChatEdInternalNetwork
+    restart: on-failure
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    image: openchated-mariadb
+    build:
+      context: ./docker/mariadb
+      dockerfile: ./OpenChatEd.mariadb.dockerfile
+    container_name: OpenChatEd-mariadb
+    hostname: mariadb
+    networks:
+      - OpenChatEdInternalNetwork
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u${MARIADB_USER}',
+          '-p${MARIADB_PASSWORD}'
+        ]
+      interval: 5s
+      timeout: 1s
+      retries: 10
+
+  redis:
+    image: openchated-redis
+    build:
+      context: ./docker/redis
+      dockerfile: ./OpenChatEd.redis.dockerfile
+    container_name: OpenChatEd-redis
+    hostname: redis
+    networks:
+      - OpenChatEdInternalNetwork
+    restart: always
+    entrypoint:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--loadmodule",
+        "/usr/lib/redis/modules/rejson.so",
+        "--loadmodule",
+        "/usr/lib/redis/modules/redisearch.so"
+      ]
+    command: --port ${REDIS_PORT} --requirepass ${REDIS_PASS}
+
+networks:
+  OpenChatEdExternalNetwork:
+    driver: bridge
+    name: OpenChatEd-External-Network
+
+  OpenChatEdInternalNetwork:
+    driver: bridge
+    name: OpenChatEd-Internal-Network

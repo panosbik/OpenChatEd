@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Email Verification</title>
+	<style type="text/css">
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			margin: 0 auto;
+			max-width: 600px;
+			padding: 30px;
+			background-color: #ffffff;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.header {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.header h1 {
+			color: #222;
+			font-size: 32px;
+			margin: 0;
+			text-shadow: 1px 1px 1px #ccc;
+		}
+
+		.content {
+			font-size: 18px;
+			line-height: 1.5;
+			margin-bottom: 30px;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			background-color: #f7f7f7;
+			text-align: justify;
+		}
+
+		.button {
+			display: block;
+			margin: 0 auto;
+			padding: 8px 16px;
+			background-color: #0077b6;
+			color: #ffffff;
+			text-decoration: none;
+			border-radius: 5px;
+			margin-top: 20px;
+			margin-left: 25%;
+			margin-right: 25%;
+			font-size: 16px;
+			text-align: center;
+			transition: background-color 0.3s ease;
+			border: none;
+			cursor: pointer;
+		}
+
+		.button:hover {
+			background-color: #023e8a;
+		}
+
+		.footer {
+			text-align: center;
+			font-size: 14px;
+			color: #555;
+			margin-top: 30px;
+		}
+
+		.footer img {
+			max-width: 300px;
+		}
+
+		@media only screen and (max-width: 600px) {
+			body {
+				font-size: 14px;
+			}
+
+			.container {
+				padding: 15px;
+				max-width: 100%;
+			}
+
+			.header h1 {
+				font-size: 24px;
+			}
+
+			.content {
+				font-size: 16px;
+				padding: 15px;
+			}
+
+			.button {
+				font-size: 14px;
+				padding: 6px 12px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>Verify Your Email Address</h1>
+		</div>
+		<div class="content">
+			<p>Thank you for registering with OpenChatEd. Please click the button below to verify your email address:
+			</p>
+			<a href="{{ .URL }}" target="_blank" class="button">Verify Email</a>
+			<p>If you did not create an account with us, please ignore this email.</p>
+		</div>
+		<div class="footer">
+			<img src="http://www.up2metric.com/wp-content/uploads/2019/07/u2m-uai-516x258.png" alt="My Company Logo">
+			<p>This email was sent to you as part of your account registration with OpenChatEd.</p>
+		</div>
+	</div>
+</body>
+
+</html>

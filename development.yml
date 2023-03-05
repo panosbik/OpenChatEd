@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  webserver:
+    env_file:
+      - development.env
+    volumes:
+      - ./docker/webserver/conf.dev.d/:/etc/nginx/conf.d/
+
+  api:
+    env_file:
+      - development.env
+    volumes:
+      - ./development.env:/www/src/OpenChatEd/api/app.env
+
+  mariadb:
+    env_file:
+      - development.env
+    volumes:
+      - ./docker/mariadb/storage/dev/data:/var/lib/mysql
+      - ./docker/mariadb/storage/dev/logs:/var/log/mysql
+
+  redis:
+    env_file:
+      - development.env
+    volumes:
+      - ./docker/redis/storage/dev:/data:rw

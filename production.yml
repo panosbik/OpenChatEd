@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  webserver:
+    env_file:
+      - production.env
+    volumes:
+      - ./docker/webserver/conf.d/:/etc/nginx/conf.d/
+
+  api:
+    env_file:
+      - production.env
+    environment:
+      mode: production
+    volumes:
+      - ./production.env:/www/src/OpenChatEd/api/app.env
+
+  mariadb:
+    env_file:
+      - production.env
+    volumes:
+      - ./docker/mariadb/storage/prod/data:/var/lib/mysql
+      - ./docker/mariadb/storage/prod/logs:/var/log/mysql
+
+  redis:
+    env_file:
+      - production.env
+    volumes:
+      - ./docker/redis/storage/prod:/data:rw
