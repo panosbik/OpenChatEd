@@ -200,7 +200,7 @@ func (uc *UserController) Search(c *fiber.Ctx) error {
 		Model(&models.User{}).
 		Omit("password", "is_active", "icon_path", "created", "updated", "deleted").
 		Where("is_active = ?", true).
-		Where("first_name ILIKE @term OR last_name ILIKE @term OR last_name ILIKE @term", sql.Named("term", term+"%"))
+		Where("username LIKE @term OR email LIKE @term", sql.Named("term", term+"%"))
 
 	// Paginate the results using the provided page and page size
 	paginationResults, err := pagination.NewPagingResult(q, users, page, pageSize)

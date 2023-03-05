@@ -9,16 +9,16 @@ import (
 )
 
 type PagingResult struct {
-	HasNextPage     bool        `json:"has_next_page"`
-	HasPreviousPage bool        `json:"has_previous_page"`
-	Page            int         `json:"page"`
-	PageSize        int         `json:"page_size"`
-	TotalPages      int         `json:"total_pages"`
-	TotalCount      int64       `json:"total_count"`
-	Items           interface{} `json:"items"`
+	HasNextPage     bool  `json:"has_next_page"`
+	HasPreviousPage bool  `json:"has_previous_page"`
+	Page            int   `json:"page"`
+	PageSize        int   `json:"page_size"`
+	TotalPages      int   `json:"total_pages"`
+	TotalCount      int64 `json:"total_count"`
+	Items           any   `json:"items"`
 }
 
-func NewPagingResult(q *gorm.DB, data interface{}, page, pageSize int) (*PagingResult, error) {
+func NewPagingResult(q *gorm.DB, data any, page, pageSize int) (*PagingResult, error) {
 	var (
 		totalCount int64
 		offset     int = (page - 1) * pageSize
