@@ -9,12 +9,12 @@ import (
 )
 
 type PagingResult struct {
-	HasNextPage     bool  `json:"has_next_page"`
-	HasPreviousPage bool  `json:"has_previous_page"`
+	HasNextPage     bool  `json:"hasNextPage"`
+	HasPreviousPage bool  `json:"hasPreviousPage"`
 	Page            int   `json:"page"`
-	PageSize        int   `json:"page_size"`
-	TotalPages      int   `json:"total_pages"`
-	TotalCount      int64 `json:"total_count"`
+	PageSize        int   `json:"pageSize"`
+	TotalPages      int   `json:"totalPages"`
+	TotalCount      int64 `json:"totalCount"`
 	Items           any   `json:"items"`
 }
 
